@@ -55,7 +55,7 @@
                 <nav class="main-nav">
                     <!-- ***** Logo Start ***** -->
                     <a href="index.html" class="logo">
-                        <img src="{% static 'assets/images/logo.png' %}">
+                        <img src="{{ website.logo.url }}" height="44px" width="94px">
                     </a>
                     <!-- ***** Logo End ***** -->
                     <!-- ***** Menu Start ***** -->
@@ -154,14 +154,13 @@
         <div class="row">
             <div class="col-lg-6 align-self-center">
                 <div class="left-image">
-                    <img src="assets/images/about-left-image.png" alt="Two Girls working together">
+                    <img src="{{ website.about_image.url }}" alt="Two Girls working together">
                 </div>
             </div>
             <div class="col-lg-6">
                 <div class="section-heading">
-                    <h2>Grow your website with our <em>SEO Tools</em> &amp; <span>Project</span> Management</h2>
-                    <p>You can browse free HTML templates on Too CSS website. Visit the website and explore latest
-                        website templates for your projects.</p>
+                    <h2>{{ website.about_title }}</h2>
+                    <p>{{ website.about_desc }}</p>
                     <div class="row">
                         <div class="col-lg-4">
                             <div class="fact-item">
@@ -169,9 +168,9 @@
                                     <div class="icon">
                                         <img src="assets/images/service-icon-01.png" alt="">
                                     </div>
-                                    <div class="count-digit">320</div>
+                                    <div class="count-digit">{{ website.project_no }}</div>
                                     <div class="count-title">SEO Projects</div>
-                                    <p>Lorem ipsum dolor sitti amet, consectetur.</p>
+                                    <p>{{ website.project_desc }}</p>
                                 </div>
                             </div>
                         </div>
@@ -181,9 +180,9 @@
                                     <div class="icon">
                                         <img src="assets/images/service-icon-02.png" alt="">
                                     </div>
-                                    <div class="count-digit">640</div>
+                                    <div class="count-digit">{{ website.website_no }}</div>
                                     <div class="count-title">Websites</div>
-                                    <p>Lorem ipsum dolor sitti amet, consectetur.</p>
+                                    <p>{{ website.website_desc }}</p>
                                 </div>
                             </div>
                         </div>
@@ -193,9 +192,9 @@
                                     <div class="icon">
                                         <img src="assets/images/service-icon-03.png" alt="">
                                     </div>
-                                    <div class="count-digit">120</div>
+                                    <div class="count-digit">{{ website.client_no }}</div>
                                     <div class="count-title">Satisfied Clients</div>
-                                    <p>Lorem ipsum dolor sitti amet, consectetur.</p>
+                                    <p>{{ website.client_desc }}</p>
                                 </div>
                             </div>
                         </div>
@@ -565,14 +564,14 @@
             <div class="col-lg-3">
                 <div class="about footer-item">
                     <div class="logo">
-                        <a href="#"><img src="assets/images/logo.png" alt="Onix Digital TemplateMo"></a>
+                        <a href="#"><img src="{{ website.logo.url }}" alt="Onix Digital TemplateMo"></a>
                     </div>
-                    <a href="#">info@company.com</a>
+                    <a href="#">{{ website.email }}</a>
                     <ul>
-                        <li><a href="#"><i class="fa fa-facebook"></i></a></li>
-                        <li><a href="#"><i class="fa fa-twitter"></i></a></li>
-                        <li><a href="#"><i class="fa fa-behance"></i></a></li>
-                        <li><a href="#"><i class="fa fa-instagram"></i></a></li>
+                        <li><a href="{{ website.facebook }}"><i class="fa fa-facebook"></i></a></li>
+                        <li><a href="{{ website.twitter }}"><i class="fa fa-twitter"></i></a></li>
+                        <li><a href="{{ website.behance }}"><i class="fa fa-behance"></i></a></li>
+                        <li><a href="{{ website.instagram }}"><i class="fa fa-instagram"></i></a></li>
                     </ul>
                 </div>
             </div>

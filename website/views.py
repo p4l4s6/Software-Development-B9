@@ -5,7 +5,7 @@ from django.views import View
 from django.views.generic import TemplateView
 
 from website import forms
-from website.models import Slider, Service, Package, Video
+from website.models import Slider, Service, Package, Video, WebsiteSettings
 
 
 # Create your views here.
@@ -19,6 +19,7 @@ class HomeView(TemplateView):
         context['services'] = Service.objects.all()
         context['packages'] = Package.objects.all()
         context['videos'] = Video.objects.all()
+        context['website'] = WebsiteSettings.objects.first()
         return context
 
 
@@ -44,3 +45,11 @@ class SubscriberView(View):
         else:
             messages.error(request, "Invalid! Please try again")
         return redirect('/')
+
+
+# def home(self, request):
+#     context={
+#
+#     }
+#
+#     return render(request, 'index.html', context=context)

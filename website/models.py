@@ -1,3 +1,5 @@
+import uuid
+
 from django.db import models
 
 
@@ -60,3 +62,25 @@ class Subscriber(models.Model):
 
     def __str__(self):
         return self.email
+
+
+class WebsiteSettings(models.Model):
+    site_name = models.CharField(max_length=100)
+    logo = models.ImageField(upload_to='settings/')
+    about_title = models.CharField(max_length=100)
+    about_desc = models.TextField()
+    project_no = models.IntegerField(default=1)
+    website_no = models.IntegerField(default=1)
+    client_no = models.IntegerField(default=1)
+    project_desc = models.CharField(max_length=100)
+    website_desc = models.CharField(max_length=100)
+    client_desc = models.CharField(max_length=100)
+    about_image = models.ImageField(upload_to='settings/')
+    facebook = models.CharField(max_length=100)
+    twitter = models.CharField(max_length=100)
+    behance = models.CharField(max_length=100)
+    instagram = models.CharField(max_length=100)
+    email = models.EmailField(max_length=100)
+
+    def __str__(self):
+        return self.site_name
