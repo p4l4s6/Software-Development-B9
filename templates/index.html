@@ -366,10 +366,10 @@
 
 <div id="pricing" class="pricing-tables">
     <div class="tables-left-dec">
-        <img src="assets/images/tables-left-dec.png" alt="">
+        <img src="{% static 'assets/images/tables-left-dec.png' %}" alt="">
     </div>
     <div class="tables-right-dec">
-        <img src="assets/images/tables-right-dec.png" alt="">
+        <img src="{% static 'assets/images/tables-right-dec.png' %}" alt="">
     </div>
     <div class="container">
         <div class="row">
@@ -381,54 +381,25 @@
             </div>
         </div>
         <div class="row">
-            <div class="col-lg-4">
-                <div class="item first-item">
-                    <h4>Starter Plan</h4>
-                    <em>$160/mo</em>
-                    <span>$140</span>
-                    <ul>
-                        <li>10 Projects</li>
-                        <li>100 GB space</li>
-                        <li>20 SEO checkups</li>
-                        <li>Basic Support</li>
-                    </ul>
-                    <div class="main-blue-button-hover">
-                        <a href="#">Get Started</a>
+
+            {% for package in packages %}
+                <div class="col-lg-4">
+                    <div class="item first-item">
+                        <h4>{{ package.name }}</h4>
+                        <em>${{ package.price }}/mo</em>
+                        <span>${{ package.price }}</span>
+                        <ul>
+                            {% for feature in package.get_features %}
+                                <li>{{ feature.title }}</li>
+                            {% endfor %}
+                        </ul>
+                        <div class="main-blue-button-hover">
+                            <a href="#">Get Started</a>
+                        </div>
                     </div>
                 </div>
-            </div>
-            <div class="col-lg-4">
-                <div class="item second-item">
-                    <h4>Standard Plan</h4>
-                    <em>$240/mo</em>
-                    <span>$200</span>
-                    <ul>
-                        <li>20 Projects</li>
-                        <li>200 GB space</li>
-                        <li>50 SEO checkups</li>
-                        <li>Pro Support</li>
-                    </ul>
-                    <div class="main-blue-button-hover">
-                        <a href="#">Get it Now</a>
-                    </div>
-                </div>
-            </div>
-            <div class="col-lg-4">
-                <div class="item third-item">
-                    <h4>Advanced Plan</h4>
-                    <em>$360/mo</em>
-                    <span>$280</span>
-                    <ul>
-                        <li>30 Projects</li>
-                        <li>300 GB space</li>
-                        <li>100 SEO checkups</li>
-                        <li>Best Support</li>
-                    </ul>
-                    <div class="main-blue-button-hover">
-                        <a href="#">Buy Now</a>
-                    </div>
-                </div>
-            </div>
+            {% endfor %}
+
         </div>
     </div>
 </div>
@@ -441,12 +412,16 @@
                     <div class="row">
                         <div class="col-lg-10 offset-lg-1">
                             <h2>Know Your Website SEO Score by Email</h2>
-                            <form id="subscribe" action="" method="get">
+                            <form id="subscribe" action="{% url 'subscribe' %}" method="post">
+                                {% for message in messages %}
+                                    <li>{{ message }}</li>
+                                {% endfor %}
+                                {% csrf_token %}
                                 <input type="text" name="website" id="website" placeholder="Your Website URL"
                                        required="">
                                 <input type="text" name="email" id="email" pattern="[^ @]*@[^ @]*"
                                        placeholder="Your Email" required="">
-                                <button type="submit" id="form-submit" class="main-button ">Subscribe</button>
+                                <button type="submit" class="main-button ">Subscribe</button>
                             </form>
                         </div>
                     </div>
@@ -458,10 +433,10 @@
 
 <div id="video" class="our-videos section">
     <div class="videos-left-dec">
-        <img src="assets/images/videos-left-dec.png" alt="">
+        <img src="{% static 'assets/images/videos-left-dec.png' %}" alt="">
     </div>
     <div class="videos-right-dec">
-        <img src="assets/images/videos-right-dec.png" alt="">
+        <img src="{% static 'assets/images/videos-right-dec.png' %}" alt="">
     </div>
     <div class="container">
         <div class="row">
@@ -471,106 +446,40 @@
                         <div class="row">
                             <div class="col-lg-8">
                                 <ul class="nacc">
-                                    <li class="active">
-                                        <div>
-                                            <div class="thumb">
-                                                <iframe width="100%" height="auto"
-                                                        src="https://www.youtube.com/embed/JynGuQx4a1Y"
-                                                        title="YouTube video player" frameborder="0"
-                                                        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-                                                        allowfullscreen></iframe>
-                                                <div class="overlay-effect">
-                                                    <a href="#"><h4>Project One</h4></a>
-                                                    <span>SEO &amp; Marketing</span>
+                                    {% for video in videos %}
+                                        <li {% if forloop.counter0 == 0 %} class="active" {% endif %}>
+                                            <div>
+                                                <div class="thumb">
+                                                    <iframe width="100%" height="auto"
+                                                            src="{{ video.youtube }}"
+                                                            title="YouTube video player" frameborder="0"
+                                                            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                                                            allowfullscreen></iframe>
+                                                    <div class="overlay-effect">
+                                                        <a href="#"><h4>{{ video.title }}</h4></a>
+                                                        <span>{{ video.category }}</span>
+                                                    </div>
                                                 </div>
                                             </div>
-                                        </div>
-                                    </li>
-                                    <li>
-                                        <div>
-                                            <div class="thumb">
-                                                <iframe width="100%" height="auto"
-                                                        src="https://www.youtube.com/embed/RdJBSFpcO4M"
-                                                        title="YouTube video player" frameborder="0"
-                                                        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-                                                        allowfullscreen></iframe>
-                                                <div class="overlay-effect">
-                                                    <a href="#"><h4>Second Project</h4></a>
-                                                    <span>Advertising &amp; Marketing</span>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </li>
-                                    <li>
-                                        <div>
-                                            <div class="thumb">
-                                                <iframe width="100%" height="auto"
-                                                        src="https://www.youtube.com/embed/ZlfAjbQiL78"
-                                                        title="YouTube video player" frameborder="0"
-                                                        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-                                                        allowfullscreen></iframe>
-                                                <div class="overlay-effect">
-                                                    <a href="#"><h4>Project Three</h4></a>
-                                                    <span>Digital &amp; Marketing</span>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </li>
-                                    <li>
-                                        <div>
-                                            <div class="thumb">
-                                                <iframe width="100%" height="auto"
-                                                        src="https://www.youtube.com/embed/mx1WseE7-0Y"
-                                                        title="YouTube video player" frameborder="0"
-                                                        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-                                                        allowfullscreen></iframe>
-                                                <div class="overlay-effect">
-                                                    <a href="#"><h4>Fourth Project</h4></a>
-                                                    <span>SEO &amp; Advertising</span>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </li>
+                                        </li>
+                                    {% endfor %}
+
                                 </ul>
                             </div>
                             <div class="col-lg-4">
                                 <div class="menu">
-                                    <div class="active">
-                                        <div class="thumb">
-                                            <img src="assets/images/video-thumb-01.png" alt="">
-                                            <div class="inner-content">
-                                                <h4>Project One</h4>
-                                                <span>SEO &amp; Marketing</span>
+                                    {% for video in videos %}
+                                        <div {% if forloop.counter0 == 0 %}  class="active" {% endif %}>
+                                            <div class="thumb">
+                                                <img src="{% static 'assets/images/video-thumb-01.png' %}" alt="">
+                                                <div class="inner-content">
+                                                    <h4>{{ video.title }}</h4>
+                                                    <span>{{ video.category }}</span>
+                                                </div>
                                             </div>
                                         </div>
-                                    </div>
-                                    <div>
-                                        <div class="thumb">
-                                            <img src="assets/images/video-thumb-02.png" alt="">
-                                            <div class="inner-content">
-                                                <h4>Second Project</h4>
-                                                <span>Advertising &amp; Marketing</span>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div>
-                                        <div class="thumb">
-                                            <img src="assets/images/video-thumb-03.png" alt="Marketing">
-                                            <div class="inner-content">
-                                                <h4>Project Three</h4>
-                                                <span>Digital &amp; Marketing</span>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div>
-                                        <div class="thumb">
-                                            <img src="assets/images/video-thumb-04.png" alt="SEO Work">
-                                            <div class="inner-content">
-                                                <h4>Fourth Project</h4>
-                                                <span>SEO &amp; Advertising</span>
-                                            </div>
-                                        </div>
-                                    </div>
+                                    {% endfor %}
+
                                 </div>
                             </div>
                         </div>
@@ -599,7 +508,11 @@
                 </div>
             </div>
             <div class="col-lg-5 align-self-center">
-                <form id="contact" action="" method="get">
+                <form id="contact" action="{% url 'contact' %}" method="post">
+                    {% for message in messages %}
+                        <li>{{ message }}</li>
+                    {% endfor %}
+                    {% csrf_token %}
                     <div class="row">
                         <div class="col-lg-12">
                             <fieldset>
@@ -626,7 +539,7 @@
                         </div>
                         <div class="col-lg-12">
                             <fieldset>
-                                <button type="submit" id="form-submit" class="main-button">Submit Request</button>
+                                <button type="submit" class="main-button">Submit Request</button>
                             </fieldset>
                         </div>
                     </div>
@@ -635,10 +548,10 @@
         </div>
     </div>
     <div class="contact-dec">
-        <img src="assets/images/contact-dec.png" alt="">
+        <img src="{% static 'assets/images/contact-dec.png' %}" alt="">
     </div>
     <div class="contact-left-dec">
-        <img src="assets/images/contact-left-dec.png" alt="">
+        <img src="{% static 'assets/images/contact-left-dec.png' %}" alt="">
     </div>
 </div>
 
